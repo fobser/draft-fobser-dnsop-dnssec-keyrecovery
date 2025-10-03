@@ -19,35 +19,34 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "DNSSEC Key Recovery"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-fobser-dnsop-dnssec-keyrecovery-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: ops
+workgroup: dnsop
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
-venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+ - DNSSEC
+ - disaster recovery
+ - backup and restore
+#venue:
+#  group: WG
+#  type: Working Group
+#  mail: WG@example.com
+#  arch: https://example.com/WG
+#  github: USER/REPO
+#  latest: https://example.com/LATEST
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Florian Obser
+    organization: RIPE NCC
+    email: fobser@example.com
 
 normative:
 
