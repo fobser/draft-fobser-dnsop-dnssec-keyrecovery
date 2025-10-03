@@ -26,7 +26,7 @@ author:
  -
     fullname: Florian Obser
     organization: RIPE NCC
-    email: fobser@example.com
+    email: fobser@ripe.net
 
 normative:
 
