@@ -2,7 +2,7 @@
 
 
 
-dnsop                                                           F. Obser
+Domain Name System Operations                                   F. Obser
 Internet-Draft                                                  RIPE NCC
 Intended status: Informational                            3 October 2025
 Expires: 6 April 2026
@@ -14,6 +14,17 @@ Expires: 6 April 2026
 Abstract
 
    TODO Abstract
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Domain Name System
+   Operations Working Group mailing list (dnsop@ietf.org), which is
+   archived at https://mailarchive.ietf.org/arch/browse/dnsop/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/fobser/draft-fobser-dnsop-dnssec-keyrecovery.
 
 Status of This Memo
 
@@ -95,4 +106,4 @@ Author's Address
 
    Florian Obser
    RIPE NCC
-   Email: fobser@example.com
+   Email: fobser@ripe.net
