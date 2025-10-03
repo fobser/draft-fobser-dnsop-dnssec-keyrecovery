@@ -8,8 +8,8 @@ number:
 date:
 consensus: true
 v: 3
-area: ops
-workgroup: dnsop
+area: "Operations and Management"
+workgroup: "Domain Name System Operations"
 keyword:
  - DNSSEC
  - disaster recovery
