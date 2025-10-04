@@ -4,12 +4,12 @@
 
 Domain Name System Operations                                   F. Obser
 Internet-Draft                                                  RIPE NCC
-Intended status: Informational                            3 October 2025
-Expires: 6 April 2026
+Intended status: Informational                            4 October 2025
+Expires: 7 April 2026
 
 
-                          DNSSEC Key Recovery
-              draft-fobser-dnsop-dnssec-keyrecovery-latest
+                           DNSSEC Key Restore
+              draft-fobser-dnsop-dnssec-keyrestore-latest
 
 Abstract
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 April 2026.
+   This Internet-Draft will expire on 7 April 2026.
 
 Copyright Notice
 
