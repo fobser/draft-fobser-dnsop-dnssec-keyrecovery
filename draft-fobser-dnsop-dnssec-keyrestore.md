@@ -1,8 +1,8 @@
 ---
-title: "DNSSEC Key Recovery"
+title: "DNSSEC Key Restore"
 category: info
 
-docname: draft-fobser-dnsop-dnssec-keyrecovery-latest
+docname: draft-fobser-dnsop-dnssec-keyrestore-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
