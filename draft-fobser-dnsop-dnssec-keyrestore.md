@@ -115,9 +115,11 @@ Operable (private key):
 
 # Scope
 
-Online signing, such as {{RFC9824}}, is out of scope since the
-operational challenges are different than described in the
-introduction.
+The procedures described in this document pertain to DNSSEC architectures
+with pre-signed records. Online signing, such as described in {{RFC9824}},
+is out of scope since it requires that each server carrying the zone holds
+a copy of the signing key(s). Thus, the operational challenges are different
+than described in the introduction.
 
 The root zone is out of scope since the distribution of a new trust
 anchor takes considerably longer than the RRSIG lifetime.
