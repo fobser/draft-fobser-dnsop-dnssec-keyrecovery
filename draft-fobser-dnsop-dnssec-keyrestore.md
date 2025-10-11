@@ -287,7 +287,7 @@ changed. Therefore, only the Double-DS method can be used. See
 Section 3.3.2 of {{RFC7583}} documents the timeline for this method.
 
 Since the CSK is also used to sign the zone, the timing of the
-Double-DS method need to be adjusted.
+Double-DS method needs to be adjusted.
 
 The inoperable CSK and all RRSIGs it created MUST remain in the zone.
 
