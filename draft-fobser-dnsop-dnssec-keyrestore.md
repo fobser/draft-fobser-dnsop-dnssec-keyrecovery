@@ -83,9 +83,9 @@ key share holders. In case the private key becomes inoperable, _m_ out
 of the _n_ key share holders need to come together to restore the secret
 key.
 
-A key sharing scheme creates its own operational issues though. When
-more than _n-m_ key shares become unavailable, a restore cannot be
-performed because not enough key shares are available. This is
+A key sharing scheme does not mitigate all risk. When
+more than _n-m_ key shares become unavailable a restore cannot be
+performed, because not enough key shares are available. This is
 particularly challenging in small to medium sized teams.
 
 On the other hand, a DNSSEC signed zones can be considered public data
