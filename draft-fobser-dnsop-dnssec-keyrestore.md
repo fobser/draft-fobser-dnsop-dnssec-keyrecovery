@@ -161,11 +161,15 @@ from {{RFC7583}}.
 
 During the restore process, the signing software operates on a
 pre-signed zone. That is, the zone already contains a DNSKEY RRset and
-RRSIG RRsets. The signing software MUST NOT remove those
-DNSKEYs and RRSIGs until instructed to do so. The signing software
-might try to remove those DNSKEYs and RRSIGs because the private key
-is not present, the operator MUST prevent this, otherwise the zone
-will become bogus.
+RRSIG RRsets. The signing software might try to remove these records
+because the accompanying private key is no longer present. The operator
+MUST prevent this, otherwise the zone will become bogus.
+
+The signing software MUST NOT remove DNSKEYs until instructed to do so
+and SHOULD NOT remove old RRSIGs. If a signer implementation does
+not support keeping the old RRSIG records in place these records,
+excluding the RRSIG for the old DNSKEY RRset, MUST be manually added back
+to the zone before publication.
 
 The exact process depends on which key(s) are inoperable and if the
 zone is signed with a split KSK / ZSK key pair or a Combined Signing
