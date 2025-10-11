@@ -184,7 +184,23 @@ method can be used. See {{RFC7583}} section 2.1.
 Section 3.2.1 of {{RFC7583}} documents the timeline for this
 method.
 
-The new ZSK is added to the DNSKEY RRset at its publication time
+The following diagram shows the timeline of the restoration.
+Time increases along the horizontal scale from left to right and the vertical
+lines indicate events in the process. Significant times and time intervals
+are marked.
+
+                 |1|      |2|   |3|      |4|
+                  |        |     |        |
+   Key N         - - ----------->|<-Iret->|
+                  |        |     |        |
+   Key N+1        |<-Ipub->|<--->|<----- - -
+                  |        |     |        |
+   Key N                                 Trem
+   Key N+1        Tpub    Trdy  Tact
+
+                     ---- Time ---->
+
+Event 1: The new ZSK is added to the DNSKEY RRset at its publication time
 (Tpub).
 
 The inoperable ZSK and all RRSIGs it created MUST remain in the zone.
@@ -199,16 +215,17 @@ Dprp is the propagation delay, the time it takes for changes to
 propagate to all authoritative nameserver instances. TTLkey is the TTL
 of the DNSKEY RRset.
 
-The new ZSK can be used when it becomes ready at Trdy:
+Event 2: The new ZSK can be used when it becomes ready at Trdy.
 
     Trdy = Tpub + Ipub.
 
-At this point the zone can be changed again. The zone is signed with
-the new ZSK and RRSIGs from the inoperable ZSK can be removed. The
-inoperable ZSK MUST be retained in the DNSKEY RRset.
+At this point the zone can be changed again.
 
-The inoperable ZSK can be removed after the retire interval (Iret),
-given by:
+Event 3: At some later time, the zone is signed with the new ZSK. At this
+point RRSIGs from the inoperable ZSK can be removed. The inoperable ZSK
+MUST be retained in the DNSKEY RRset.
+
+Event 4: The inoperable ZSK can be removed after the retire interval (Iret).
 
     Iret = Dsgn + Dprp + TTLsig
 
@@ -216,8 +233,8 @@ Dsgn is the delay needed to ensure that all existing RRsets are signed
 with the new ZSK, Dprp is the propagation delay and TTLsig is the
 maximum TTL of all RRSIG records.
 
-Theoretically the Double-Signature method could be used as well, but
-the zone can only be changed after the retire interval, which is at
+Theoretically the Double-Signature method could be used as well. In this case
+records in the zone can only be changed after the retire interval, which is at
 least as long as the publication interval of the Pre-Publication
 method. The Double-Signature retire interval is given by:
 
