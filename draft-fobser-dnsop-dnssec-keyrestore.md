@@ -37,6 +37,7 @@ normative:
 informative:
   RFC6781:
   RFC7583:
+  RFC7958:
   RFC9499:
   RFC9824:
   Shamir:
@@ -122,7 +123,7 @@ a copy of the signing key(s). Thus, the operational challenges are different
 than described in the introduction.
 
 The root zone is out of scope since the distribution of a new trust
-anchor takes considerably longer than the RRSIG lifetime.
+anchor takes considerably longer than the RRSIG lifetime {{RFC7958}}.
 
 Algorithm Rollovers {{RFC6781}} section 4.1.4 are out of scope as
 well. They are already complicated enough and trying to recover from
