@@ -59,8 +59,8 @@ case a DNSSEC private key becoming inoperable.
 
 # Introduction
 
-DNSSEC {{RFC9364}} uses public key cryptography to provide origin
-authentication of DNS data. From an operational point of view, it is
+DNSSEC {{RFC9364}} uses public key cryptography to provide integrity
+protection of DNS data. From an operational point of view, it is
 critically important to keep the private key secret under all
 circumstances.
 
