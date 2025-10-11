@@ -161,7 +161,7 @@ from {{RFC7583}}.
 
 During the restore process, the signing software operates on a
 pre-signed zone. That is, the zone already contains a DNSKEY RRset and
-RRSIG RRsets. The signing software MUST NOT remove remove those
+RRSIG RRsets. The signing software MUST NOT remove those
 DNSKEYs and RRSIGs until instructed to do so. The signing software
 might try to remove those DNSKEYs and RRSIGs because the private key
 is not present, the operator MUST prevent this, otherwise the zone
