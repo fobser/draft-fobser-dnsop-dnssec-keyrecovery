@@ -78,13 +78,13 @@ natural disaster, operator error, or malicious action.
 It is difficult to create backups of the private key. After all, the
 system is designed to prevent backups. A compromise is usually reached
 by using a secret sharing scheme, e.g. {{Shamir}}. The private key is
-split into n pieces inside of the HSM, which are then distributed to
-key share holders. In case the private key becomes inoperable, m out
-of the n key share holders need to come together to restore the secret
+split into _n_ pieces inside of the HSM, which are then distributed to
+key share holders. In case the private key becomes inoperable, _m_ out
+of the _n_ key share holders need to come together to restore the secret
 key.
 
 A key sharing scheme creates its own operational issues though. When
-more than n-m key shares become unavailable, a restore cannot be
+more than _n-m_ key shares become unavailable, a restore cannot be
 performed because not enough key shares are available. This is
 particularly challenging in small to medium sized teams.
 
