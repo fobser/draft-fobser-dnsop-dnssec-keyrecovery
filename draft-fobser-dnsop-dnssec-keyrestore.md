@@ -88,8 +88,8 @@ more than _n-m_ key shares become unavailable a restore cannot be
 performed, because not enough key shares are available. This is
 particularly challenging in small to medium sized teams.
 
-On the other hand, a DNSSEC signed zones can be considered public data
-with its integrity protected by signatures. The signed zones can be
+Unlike the private key, a DNSSEC signed zone can be considered public
+data with its integrity protected by signatures. Signed zones can be
 added to the normal, established backup procedures.
 
 # Conventions and Definitions
