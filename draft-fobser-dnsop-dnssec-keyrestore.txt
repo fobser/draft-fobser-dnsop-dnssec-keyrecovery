@@ -5,7 +5,7 @@
 Domain Name System Operations                                   F. Obser
 Internet-Draft                                                   M. Pels
 Intended status: Informational                                  RIPE NCC
-Expires: 7 April 2026                                     4 October 2025
+Expires: 14 April 2026                                   11 October 2025
 
 
                            DNSSEC Key Restore
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 April 2026.
+   This Internet-Draft will expire on 14 April 2026.
 
 Copyright Notice
 
@@ -78,40 +78,38 @@ Table of Contents
 
 1.  Introduction
 
-   DNSSEC [RFC9364] uses public key cryptography to provide origin
-   authentication of DNS data.  From an operational point of view, it is
+   DNSSEC [RFC9364] uses public key cryptography to provide integrity
+   protection of DNS data.  From an operational point of view, it is
    critically important to keep the private key secret under all
    circumstances.
 
    The private key is typically kept secret by using Hardware Security
    Modules (HSMs).  HSMs are designed to perform cryptographic
    operations such as creating keys and signing messages without
-   disclosing the private key.
+   disclosing the private key.  Alternatively the DNSSEC signer is an
+   appliance or commodity server hardware and operational policy
+   stipulates that the private key must not leave the signer.
 
-   Alternatively the DNSSEC signer is an appliance or commodity server
-   hardware and operational policy stipulates that the private key must
-   not leave the signer.
-
-   Operationally this is a problem because only a single key exists.
-   The key could become inoperable at any point due to hardware failure,
+   Operationally this is a risk because only a single key exists.  The
+   key could become inoperable at any point due to hardware failure,
    natural disaster, operator error, or malicious action.
 
    It is difficult to create backups of the private key.  After all, the
    system is designed to prevent backups.  A compromise is usually
    reached by using a secret sharing scheme, e.g. [Shamir].  The private
-   key is split into n pieces inside of the HSM, which are then
+   key is split into _n_ pieces inside of the HSM, which are then
    distributed to key share holders.  In case the private key becomes
-   inoperable, m out of the n key share holders need to come together to
-   restore the secret key.
+   inoperable, _m_ out of the _n_ key share holders need to come
+   together to restore the secret key.
 
-   A key sharing scheme creates its own operational issues though.  When
-   more than n-m key shares become unavailable, a restore cannot be
-   performed because not enough key shares are available.  This is
-   particularly challenging in small to medium sized teams.
+   A key sharing scheme does not mitigate all risk.  When more than _n-
+   m_ key shares become unavailable a restore cannot be performed,
+   because not enough key shares are available.  This is particularly
+   challenging in small to medium sized teams.
 
-   On the other hand, a DNSSEC signed zones can be considered public
-   data with its integrity protected by signatures.  The signed zones
-   can be added to the normal, established backup procedures.
+   Unlike the private key, a DNSSEC signed zone can be considered public
+   data with its integrity protected by signatures.  Signed zones can be
+   added to the normal, established backup procedures.
 
 2.  Conventions and Definitions
 
@@ -121,14 +119,14 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   This document uses DNS terminology from [RFC9499].
+   This document uses DNS terminology from [RFC9499].  DNSSEC key states
+   and timeline related abbreviations are defined in [RFC7583].
 
-   DNSSEC key states and timeline related abbreviations are defined in
-   [RFC7583].
+   The following additional definitions are used within this document.
 
-   Inoperable (private key):  The private part of a DNSKEY that appears
-      in the chain of trust of the zone that can no longer be used for
-      signing.  Reasons include hardware failure, natural disaster,
+   Inoperable (private key):  The private part of a DNSKEY appearing in
+      the chain of trust of the zone that can no longer be used for
+      signing.  Causes include hardware failure, natural disaster,
       operator error, or malicious action.  A compromised key is not an
       inoperable private key since it can still be used for signing.
 
@@ -137,26 +135,26 @@ Table of Contents
 
 3.  Scope
 
-   Online signing, such as [RFC9824], is out of scope since the
-   operational challenges are different than described in the
+   The procedures described in this document pertain to DNSSEC
+   architectures with pre-signed records.  Online signing, such as
+   described in [RFC9824], is out of scope since it requires that each
+   server carrying the zone holds a copy of the signing key(s).  Thus,
+   the operational challenges are different than described in the
    introduction.
 
    The root zone is out of scope since the distribution of a new trust
-   anchor takes considerably longer than the RRSIG lifetime.
+   anchor takes considerably longer than the RRSIG lifetime [RFC7958].
 
-   Algorithm Rollovers [RFC6781] section 4.1.4 are out of scope as well.
-   They are already complicated enough and trying to recover from an
-   inoperable DNSSEC private key while an algorithm rollover is being
-   performed is unlikely to be successful.  Since the rollover only
-   takes a short time, it might be advisable to forgo the strict
-   requirement of keeping the private key secret at all costs.  The
-   algorithm rollover could be performed with commodity hardware that
-   allows regular backups that are easy to handle.  Once the algorithm
-   rollover is done, a new Key Signing Key (KSK) and Zone Signing Key
-   (ZSK) can be generated by a HSM or appliance and a normal KSK/ZSK
-   roll to that new key can be performed.
+   Algorithm Rollovers as described in [RFC6781], section 4.1.4 are out
+   of scope as well.  They are already complicated enough and trying to
+   recover from an inoperable DNSSEC private key while an algorithm
+   rollover is being performed is unlikely to be successful.  If a new
+   algorithm is required, the procedures defined in this document SHOULD
+   be followed to first restore signing with the old algorithm.  Once
+   this has been completed a regular algorithm rollover can be
+   performed.
 
-   Normal key rollovers are in scope, since they do not pose extra
+   Regular key rollovers are in scope, since they do not pose extra
    challenges.  The procedures described in this document effectively
    cancel a potentially ongoing key rollover and perform a new one.
 
@@ -173,8 +171,8 @@ Table of Contents
    authoritative name servers.  Signatures typically have a lifetime of
    many days.  That means that the operator has a lot of time to recover
    from this situation without the zone becoming bogus and no longer
-   validating.  Hasty and inappropriate action on the other hand lead to
-   outages.
+   validating.  Hasty and inappropriate action on the other hand could
+   lead to outages.
 
    While the DNSSEC private key cannot be restored because no
    functioning backups exist, the function of the zone can be restored.
@@ -184,11 +182,15 @@ Table of Contents
 
    During the restore process, the signing software operates on a pre-
    signed zone.  That is, the zone already contains a DNSKEY RRset and
-   RRSIG RRsets.  The signing software MUST NOT remove remove those
-   DNSKEYs and RRSIGs until instructed to do so.  The signing software
-   might try to remove those DNSKEYs and RRSIGs because the private key
-   is not present, the operator MUST prevent this, otherwise the zone
-   will become bogus.
+   RRSIG RRsets.  The signing software might try to remove these records
+   because the accompanying private key is no longer present.  The
+   operator MUST prevent this, otherwise the zone will become bogus.
+
+   The signing software MUST NOT remove DNSKEYs until instructed to do
+   so and SHOULD NOT remove old RRSIGs.  If a signer implementation does
+   not support keeping the old RRSIG records in place these records,
+   excluding the RRSIG for the old DNSKEY RRset, MUST be manually added
+   back to the zone before publication.
 
    The exact process depends on which key(s) are inoperable and if the
    zone is signed with a split KSK / ZSK key pair or a Combined Signing
@@ -202,8 +204,24 @@ Table of Contents
 
    Section 3.2.1 of [RFC7583] documents the timeline for this method.
 
-   The new ZSK is added to the DNSKEY RRset at its publication time
-   (Tpub).
+   The following diagram shows the timeline of the restoration.  Time
+   increases along the horizontal scale from left to right and the
+   vertical lines indicate events in the process.  Significant times and
+   time intervals are marked.
+
+                 |1|      |2|   |3|      |4|
+                  |        |     |        |
+   Key N         - - ----------->|<-Iret->|
+                  |        |     |        |
+   Key N+1        |<-Ipub->|<--->|<----- - -
+                  |        |     |        |
+   Key N                                 Trem
+   Key N+1        Tpub    Trdy  Tact
+
+                     ---- Time ---->
+
+   Event 1: The new ZSK is added to the DNSKEY RRset at its publication
+   time (Tpub).
 
    The inoperable ZSK and all RRSIGs it created MUST remain in the zone.
 
@@ -217,16 +235,18 @@ Table of Contents
    propagate to all authoritative nameserver instances.  TTLkey is the
    TTL of the DNSKEY RRset.
 
-   The new ZSK can be used when it becomes ready at Trdy:
+   Event 2: The new ZSK can be used when it becomes ready at Trdy.
 
    Trdy = Tpub + Ipub.
 
-   At this point the zone can be changed again.  The zone is signed with
-   the new ZSK and RRSIGs from the inoperable ZSK can be removed.  The
+   At this point the zone can be changed again.
+
+   Event 3: At some later time, the zone is signed with the new ZSK.  At
+   this point RRSIGs from the inoperable ZSK can be removed.  The
    inoperable ZSK MUST be retained in the DNSKEY RRset.
 
-   The inoperable ZSK can be removed after the retire interval (Iret),
-   given by:
+   Event 4: The inoperable ZSK can be removed after the retire interval
+   (Iret).
 
    Iret = Dsgn + Dprp + TTLsig
 
@@ -234,10 +254,11 @@ Table of Contents
    signed with the new ZSK, Dprp is the propagation delay and TTLsig is
    the maximum TTL of all RRSIG records.
 
-   Theoretically the Double-Signature method could be used as well, but
-   the zone can only be changed after the retire interval, which is at
-   least as long as the publication interval of the Pre-Publication
-   method.  The Double-Signature retire interval is given by:
+   Theoretically the Double-Signature method could be used as well.  In
+   this case records in the zone can only be changed after the retire
+   interval, which is at least as long as the publication interval of
+   the Pre-Publication method.  The Double-Signature retire interval is
+   given by:
 
    Iret = Dsgn + Dprp + max(TTLkey, TTLsig)
 
@@ -247,21 +268,35 @@ Table of Contents
    Therefore, only the Double-DS method can be used.  See [RFC7583]
    section 2.2.
 
-   Section 3.3.2 of [RFC7583] documents the timeline for this method.
-
    If the ZSK is inoperable as well, it MUST NOT be restored yet.
 
-   A new DS record is added to the DS RRset in the parent zone, this is
-   the submission time, Tsbm.
+   Section 3.3.2 of [RFC7583] documents the timeline for this method.
 
-   After the registration delay, Dreg, the DS record is published in the
-   parent zone.  This is the publication time (Tpub), give by:
+   The following diagram shows the timeline of the restoration.  The
+   diagram follows the convention described in Section 4.1.
+
+               |1|      |2|       |3|  |4|      |5|
+                |        |         |    |        |
+   Key N       - ---------------------->|<-Iret->|
+                |        |         |    |        |
+   Key N+1      |<-Dreg->|<-IpubP->|<-->|<------- -
+                |        |         |    |        |
+   Key N                                        Trem
+   Key N+1     Tsbm     Tpub      Trdy Tact
+
+                    ---- Time ---->
+
+   Event 1: A new DS record is added to the DS RRset in the parent zone,
+   this is the submission time, Tsbm.
+
+   Event 2: After the registration delay, Dreg, the DS record is
+   published in the parent zone.  This is the publication time (Tpub).
 
    Tpub = Tsbm + Dreg.
 
    The DS record must be published long enough to guarantee that any
    cached DS RRset contains the new DS record.  This is the parent
-   publication interval (IpubP) given by
+   publication interval (IpubP).
 
    IpubP = DprpP + TTLds
 
@@ -269,13 +304,13 @@ Table of Contents
    takes for changes to propagate to all authoritative servers of the
    parent zone.  TTLds is the TTL of the DS RRset at the parent.
 
-   The new KSK can be used when it becomes ready at Trdy:
+   Event 3: The new KSK can be used when it becomes ready at Trdy.
 
    Trdy = Tpub + IpubP
 
-   At this point the new KSK can be added to the DNSKEY RRset and used
-   to generate the DNSKEY RRsig.  The old, inoperable KSK can be
-   removed.  The ZSK MUST remain in the DNSKEY RRset.
+   Event 4: At this point, Tact, the new KSK is added to the DNSKEY
+   RRset and used to generate the DNSKEY RRsig.  The old, inoperable KSK
+   can be removed.  The ZSK MUST remain in the DNSKEY RRset.
 
    If the ZSK is inoperable, the ZSK signing function can be now be
    restored using the procedure in the previous section.
@@ -290,10 +325,10 @@ Table of Contents
    to propagate to all authoritative nameserver instances of the child
    zone.  TTLkey is the TTL of the DNSKEY RRset.
 
-   The old DS record can be removed from the parent zone at the dead
-   time (Tdea), given by:
+   Event 5: The old DS record can be removed from the parent zone at
+   Trem.
 
-   Tdea = Trdy + Iret
+   Trem = Tact + Iret
 
 4.3.  CSK inoperable
 
@@ -304,15 +339,29 @@ Table of Contents
    Section 3.3.2 of [RFC7583] documents the timeline for this method.
 
    Since the CSK is also used to sign the zone, the timing of the
-   Double-DS method need to be adjusted.
+   Double-DS method needs to be adjusted.
 
    The inoperable CSK and all RRSIGs it created MUST remain in the zone.
 
-   A new DS record is added to the DS RRset in the parent zone, this is
-   the submission time, Tsbm.
+   The following diagram shows the timeline of the restoration.  The
+   diagram follows the convention described in Section 4.1.
 
-   After the registration delay, Dreg, the DS record is published in the
-   parent zone.  This is the publication time (Tpub), give by:
+               |1|      |2|       |3|  |4|      |5|
+                |        |         |    |        |
+   Key N       - ---------------------->|<-Iret->|
+                |        |         |    |        |
+   Key N+1      |<-Dreg->|<-IpubP->|<-->|<------- -
+                |        |         |    |        |
+   Key N                                        Trem
+   Key N+1     Tsbm     Tpub      Trdy Tact
+
+                    ---- Time ---->
+
+   Event 1: A new DS record is added to the DS RRset in the parent zone,
+   this is the submission time, Tsbm.
+
+   Event 2: After the registration delay, Dreg, the DS record is
+   published in the parent zone.  This is the publication time (Tpub).
 
    Tpub = Tsbm + Dreg.
 
@@ -326,15 +375,15 @@ Table of Contents
    takes for changes to propagate to all authoritative servers of the
    parent zone.  TTLds is the TTL of the DS RRset at the parent.
 
-   The new CSK can be used when it becomes ready at Trdy:
+   Event 3: The new CSK can be used when it becomes ready at Trdy.
 
    Trdy = Tpub + IpubP
 
-   At this point the new CSK can be added to the DNSKEY RRset and used
-   to generate the DNSKEY RRsig.  The old, inoperable CSK MUST remain in
-   the DNSKEY RRset.  The new CSK can be used to generate the RRsigs for
-   the rest of the zone.  The RRSIGs generated by the inoperable CSK
-   MUST remain in the zone.
+   Event 4: At this point the new CSK is added to the DNSKEY RRset and
+   used to generate the DNSKEY RRsig.  The old, inoperable CSK MUST
+   remain in the DNSKEY RRset.  The new CSK can be used to generate the
+   RRsigs for the rest of the zone.  The RRSIGs generated by the
+   inoperable CSK MUST remain in the zone.
 
    To ensure that no caches have DNSKEY RRset with the old CSK, the old
    DS record MUST remain in the parent zone for the duration of the
@@ -348,10 +397,10 @@ Table of Contents
    nameserver instances of the child zone.  TTLkey is the TTL of the
    DNSKEY RRset and TTLsig is the maximum TTL of all RRSIG records.
 
-   The old DS record can be removed from the parent zone at the dead
-   time (Tdea), given by:
+   Event 5: The old DS record can be removed from the parent zone at
+   Trem.
 
-   Tdea = Trdy + Iret
+   Trem = Tact + Iret
 
    At the same time the old, inoperable CSK and all its signatures can
    be removed as well.
@@ -392,6 +441,11 @@ Table of Contents
               "DNSSEC Key Rollover Timing Considerations", RFC 7583,
               DOI 10.17487/RFC7583, October 2015,
               <https://www.rfc-editor.org/rfc/rfc7583>.
+
+   [RFC7958]  Abley, J., Schlyter, J., Bailey, G., and P. Hoffman,
+              "DNSSEC Trust Anchor Publication for the Root Zone",
+              RFC 7958, DOI 10.17487/RFC7958, August 2016,
+              <https://www.rfc-editor.org/rfc/rfc7958>.
 
    [RFC9499]  Hoffman, P. and K. Fujiwara, "DNS Terminology", BCP 219,
               RFC 9499, DOI 10.17487/RFC9499, March 2024,
