@@ -189,16 +189,16 @@ Time increases along the horizontal scale from left to right and the vertical
 lines indicate events in the process. Significant times and time intervals
 are marked.
 
-                 |1|      |2|   |3|      |4|
-                  |        |     |        |
-   Key N         - - ----------->|<-Iret->|
-                  |        |     |        |
-   Key N+1        |<-Ipub->|<--->|<----- - -
-                  |        |     |        |
-   Key N                                 Trem
-   Key N+1        Tpub    Trdy  Tact
+                  |1|      |2|   |3|      |4|
+                   |        |     |        |
+    Key N         - - ----------->|<-Iret->|
+                   |        |     |        |
+    Key N+1        |<-Ipub->|<--->|<----- - -
+                   |        |     |        |
+    Key N                                 Trem
+    Key N+1        Tpub    Trdy  Tact
 
-                     ---- Time ---->
+                      ---- Time ---->
 
 Event 1: The new ZSK is added to the DNSKEY RRset at its publication time
 (Tpub).
@@ -246,22 +246,36 @@ Since the old KSK is inoperable, the DNSKEY RRset cannot be
 changed. Therefore, only the Double-DS method can be used. See
 {{RFC7583}} section 2.2.
 
+If the ZSK is inoperable as well, it MUST NOT be restored yet.
+
 Section 3.3.2 of {{RFC7583}} documents the timeline for this
 method.
 
-If the ZSK is inoperable as well, it MUST NOT be restored yet.
+The following diagram shows the timeline of the restoration.
+The diagram follows the convention described in Section 4.1.
 
-A new DS record is added to the DS RRset in the parent zone, this is
-the submission time, Tsbm.
+                |1|      |2|       |3|  |4|      |5|
+                 |        |         |    |        |
+    Key N       - ---------------------->|<-Iret->|
+                 |        |         |    |        |
+    Key N+1      |<-Dreg->|<-IpubP->|<-->|<------- -
+                 |        |         |    |        |
+    Key N                                        Trem
+    Key N+1     Tsbm     Tpub      Trdy Tact
 
-After the registration delay, Dreg, the DS record is published in the
-parent zone. This is the publication time (Tpub), give by:
+                     ---- Time ---->
+
+Event 1: A new DS record is added to the DS RRset in the parent
+zone, this is the submission time, Tsbm.
+
+Event 2: After the registration delay, Dreg, the DS record is
+published in the parent zone. This is the publication time (Tpub).
 
     Tpub = Tsbm + Dreg.
 
 The DS record must be published long enough to guarantee that any
 cached DS RRset contains the new DS record. This is the parent
-publication interval (IpubP) given by
+publication interval (IpubP).
 
     IpubP = DprpP + TTLds
 
@@ -269,13 +283,13 @@ DprpP is the propagation delay of the parent zone, i.e. the time it
 takes for changes to propagate to all authoritative servers of the
 parent zone. TTLds is the TTL of the DS RRset at the parent.
 
-The new KSK can be used when it becomes ready at Trdy:
+Event 3: The new KSK can be used when it becomes ready at Trdy.
 
     Trdy = Tpub + IpubP
 
-At this point the new KSK can be added to the DNSKEY RRset and used to
-generate the DNSKEY RRsig. The old, inoperable KSK can be removed. The
-ZSK MUST remain in the DNSKEY RRset.
+Event 4: At this point, Tact, the new KSK is added to the DNSKEY
+RRset and used to generate the DNSKEY RRsig. The old, inoperable
+KSK can be removed. The ZSK MUST remain in the DNSKEY RRset.
 
 If the ZSK is inoperable, the ZSK signing function can be now be
 restored using the procedure in the previous section.
@@ -290,10 +304,9 @@ DprpC is the child propagation delay, the time it takes for changes to
 propagate to all authoritative nameserver instances of the child
 zone. TTLkey is the TTL of the DNSKEY RRset.
 
-The old DS record can be removed from the parent zone at the dead time
-(Tdea), given by:
+Event 5: The old DS record can be removed from the parent zone at Trem.
 
-    Tdea = Trdy + Iret
+    Trem = Tact + Iret
 
 ## CSK inoperable
 
