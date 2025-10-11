@@ -68,7 +68,7 @@ circumstances.
 The private key is typically kept secret by using Hardware Security
 Modules (HSMs). HSMs are designed to perform cryptographic operations
 such as creating keys and signing messages without disclosing the
-private key. Alternatively the DNSSEC signer is an appliance or 
+private key. Alternatively the DNSSEC signer is an appliance or
 commodity server hardware and operational policy stipulates that the
 private key must not leave the signer.
 
