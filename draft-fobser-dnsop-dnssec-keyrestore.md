@@ -103,7 +103,7 @@ DNSSEC key states and timeline related abbreviations are defined in
 The following additional definitions are used within this document.
 
 Inoperable (private key):
-: The private part of a DNSKEY that appears in the chain of trust of
+: The private part of a DNSKEY appearing in the chain of trust of
   the zone that can no longer be used for signing. Reasons include
   hardware failure, natural disaster, operator error, or malicious
   action. A compromised key is not an inoperable private key since it
