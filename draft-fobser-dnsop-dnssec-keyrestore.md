@@ -133,7 +133,7 @@ the procedures defined in this document SHOULD be followed to first restore
 signing with the old algorithm. Once this has been completed a regular
 algorithm rollover can be performed.
 
-Normal key rollovers are in scope, since they do not pose extra
+Regular key rollovers are in scope, since they do not pose extra
 challenges. The procedures described in this document effectively
 cancel a potentially ongoing key rollover and perform a new one.
 
