@@ -71,7 +71,7 @@ private key. Alternatively the DNSSEC signer is an appliance or
 commodity server hardware and operational policy stipulates that the
 private key must not leave the signer.
 
-Operationally this is a problem because only a single key exists. The
+Operationally this is a risk because only a single key exists. The
 key could become inoperable at any point due to hardware failure,
 natural disaster, operator error, or malicious action.
 
