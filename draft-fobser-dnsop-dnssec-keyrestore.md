@@ -97,9 +97,10 @@ added to the normal, established backup procedures.
 {::boilerplate bcp14-tagged}
 
 This document uses DNS terminology from {{RFC9499}}.
-
 DNSSEC key states and timeline related abbreviations are defined in
 {{RFC7583}}.
+
+The following additional definitions are used within this document.
 
 Inoperable (private key):
 : The private part of a DNSKEY that appears in the chain of trust of
