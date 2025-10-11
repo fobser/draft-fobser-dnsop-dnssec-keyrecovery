@@ -150,8 +150,8 @@ inoperable, the zone is still correctly signed and served by the
 authoritative name servers. Signatures typically have a lifetime of
 many days. That means that the operator has a lot of time to recover
 from this situation without the zone becoming bogus and no longer
-validating. Hasty and inappropriate action on the other hand lead to
-outages.
+validating. Hasty and inappropriate action on the other hand could
+lead to outages.
 
 While the DNSSEC private key cannot be restored because no functioning
 backups exist, the function of the zone can be restored.
