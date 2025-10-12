@@ -93,6 +93,9 @@ Unlike the private key, a DNSSEC signed zone can be considered public
 data with its integrity protected by signatures. Signed zones can be
 added to the normal, established backup procedures.
 
+The rest of the document describes procedures on how to restore DNSSEC
+signing functionality with only a backup of the signed zone available.
+
 # Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
