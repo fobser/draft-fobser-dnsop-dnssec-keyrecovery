@@ -5,7 +5,7 @@
 Domain Name System Operations                                   F. Obser
 Internet-Draft                                                   M. Pels
 Intended status: Informational                                  RIPE NCC
-Expires: 14 April 2026                                   11 October 2025
+Expires: 15 April 2026                                   12 October 2025
 
 
                            DNSSEC Key Restore
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 April 2026.
+   This Internet-Draft will expire on 15 April 2026.
 
 Copyright Notice
 
@@ -110,6 +110,10 @@ Table of Contents
    Unlike the private key, a DNSSEC signed zone can be considered public
    data with its integrity protected by signatures.  Signed zones can be
    added to the normal, established backup procedures.
+
+   The rest of the document describes procedures on how to restore
+   DNSSEC signing functionality with only a backup of the signed zone
+   available.
 
 2.  Conventions and Definitions
 
