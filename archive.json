@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-09T00:48:53.800926+00:00",
+  "timestamp": "2025-10-12T00:51:36.398746+00:00",
   "repo": "fobser/draft-fobser-dnsop-dnssec-keyrestore",
   "labels": [
     {
@@ -50,5 +50,34 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOP7pIk86tQCJc",
+      "title": "Clarify text and add diagrams",
+      "url": "https://github.com/fobser/draft-fobser-dnsop-dnssec-keyrestore/pull/1",
+      "state": "MERGED",
+      "author": "rodecker",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-10-11T14:36:33Z",
+      "updatedAt": "2025-10-11T16:48:29Z",
+      "baseRepository": "fobser/draft-fobser-dnsop-dnssec-keyrestore",
+      "baseRefName": "main",
+      "baseRefOid": "6533a79370ef8963b46e1f261893c0785ce034c0",
+      "headRepository": "fobser/draft-fobser-dnsop-dnssec-keyrestore",
+      "headRefName": "mp-202510106",
+      "headRefOid": "1b63cb722149cf61fb65cf7d4019e2315311cb09",
+      "closedAt": "2025-10-11T16:48:29Z",
+      "mergedAt": "2025-10-11T16:48:29Z",
+      "mergedBy": "fobser",
+      "mergeCommit": {
+        "oid": "1b63cb722149cf61fb65cf7d4019e2315311cb09"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
