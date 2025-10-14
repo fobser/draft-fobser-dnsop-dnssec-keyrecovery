@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-12T00:51:36.398746+00:00",
+  "timestamp": "2025-10-14T00:48:24.131642+00:00",
   "repo": "fobser/draft-fobser-dnsop-dnssec-keyrestore",
   "labels": [
     {
@@ -63,7 +63,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-10-11T14:36:33Z",
-      "updatedAt": "2025-10-11T16:48:29Z",
+      "updatedAt": "2025-10-12T10:37:33Z",
       "baseRepository": "fobser/draft-fobser-dnsop-dnssec-keyrestore",
       "baseRefName": "main",
       "baseRefOid": "6533a79370ef8963b46e1f261893c0785ce034c0",
