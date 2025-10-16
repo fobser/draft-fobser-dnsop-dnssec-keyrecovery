@@ -131,10 +131,14 @@ anchor takes considerably longer than the RRSIG lifetime {{RFC7958}}.
 Algorithm Rollovers as described in {{RFC6781}}, section 4.1.4 are out of
 scope as well. They are already complicated enough and trying to recover
 from an inoperable DNSSEC private key while an algorithm rollover is being
-performed is unlikely to be successful. If a new algorithm is required,
-the procedures defined in this document SHOULD be followed to first restore
-signing with the old algorithm. Once this has been completed a regular
-algorithm rollover can be performed.
+performed is unlikely to be successful.
+
+If the inoperable DNSSEC private key uses an old or deprecated
+algorithm, the procedures defined in this document cannot be used to
+perform an algorithm rollover. Instead the procedures defined in this
+document SHOULD be followed to first restore signing with the old
+algorithm. Once this has been completed a regular algorithm rollover
+can be performed.
 
 Regular key rollovers are in scope, since they do not pose extra
 challenges. The procedures described in this document effectively
