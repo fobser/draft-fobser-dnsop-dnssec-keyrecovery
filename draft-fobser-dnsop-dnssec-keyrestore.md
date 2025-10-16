@@ -128,18 +128,6 @@ than described in the introduction.
 The root zone is out of scope since the distribution of a new trust
 anchor takes considerably longer than the RRSIG lifetime {{RFC7958}}.
 
-Algorithm Rollovers as described in {{RFC6781}}, section 4.1.4 are out of
-scope as well. They are already complicated enough and trying to recover
-from an inoperable DNSSEC private key while an algorithm rollover is being
-performed is unlikely to be successful. If a new algorithm is required,
-the procedures defined in this document SHOULD be followed to first restore
-signing with the old algorithm. Once this has been completed a regular
-algorithm rollover can be performed.
-
-Regular key rollovers are in scope, since they do not pose extra
-challenges. The procedures described in this document effectively
-cancel a potentially ongoing key rollover and perform a new one.
-
 # DNSSEC Key Restore
 
 In case of a catastrophe where the DNSSEC private key becomes
@@ -177,6 +165,24 @@ to the zone before publication.
 The exact process depends on which key(s) are inoperable and if the
 zone is signed with a split KSK / ZSK key pair or a Combined Signing
 Key (CSK).
+
+Performing an Algorithm Rollover as described in {{RFC6781}} using the
+procedures defined in this document is NOT RECOMMENDED. If an
+algorithm rollover is not already in progress, signing using the
+currently used algorithm should be restored first using the procedures
+defined in this document. Once this has been completed a regular
+algorithm rollover can be performed.
+
+## Key Rollover Considerations
+
+If a regular key rollover is in progress, the procedures described in
+this document can be followed. They effectively cancel the ongoing key
+rollover and perform a new one.
+
+If an algorithm rollover is in progress, the procedures described in
+this document can be followed with the exception that two new keys
+MUST be added to the zone. One with the old algorithm and one with the
+new algorithm.
 
 ## KSK / ZSK split, KSK operable, ZSK inoperable
 
