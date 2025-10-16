@@ -1,3 +1,3 @@
 # Automatically generated CODEOWNERS
 # Regenerate with `make update-codeowners`
-draft-fobser-dnsop-dnssec-keyrecovery.md fobser@example.com
+draft-fobser-dnsop-dnssec-keyrestore.md fobser@ripe.net mpels@ripe.net
