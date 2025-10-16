@@ -5,7 +5,7 @@
 Domain Name System Operations                                   F. Obser
 Internet-Draft                                                   M. Pels
 Intended status: Informational                                  RIPE NCC
-Expires: 15 April 2026                                   12 October 2025
+Expires: 19 April 2026                                   16 October 2025
 
 
                            DNSSEC Key Restore
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 April 2026.
+   This Internet-Draft will expire on 19 April 2026.
 
 Copyright Notice
 
@@ -97,14 +97,14 @@ Table of Contents
    It is difficult to create backups of the private key.  After all, the
    system is designed to prevent backups.  A compromise is usually
    reached by using a secret sharing scheme, e.g. [Shamir].  The private
-   key is split into _n_ pieces inside of the HSM, which are then
+   key is split into N pieces inside of the HSM, which are then
    distributed to key share holders.  In case the private key becomes
-   inoperable, _m_ out of the _n_ key share holders need to come
-   together to restore the secret key.
+   inoperable, M out of the N key share holders need to come together to
+   restore the secret key.
 
-   A key sharing scheme does not mitigate all risk.  When more than _n-
-   m_ key shares become unavailable a restore cannot be performed,
-   because not enough key shares are available.  This is particularly
+   A key sharing scheme does not mitigate all risk.  When more than N-M
+   key shares become unavailable a restore cannot be performed, because
+   not enough key shares are available.  This is particularly
    challenging in small to medium sized teams.
 
    Unlike the private key, a DNSSEC signed zone can be considered public

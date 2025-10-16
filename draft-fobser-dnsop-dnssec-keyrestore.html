@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Obser &amp; Pels</td>
-<td class="center">Expires 15 April 2026</td>
+<td class="center">Expires 19 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-fobser-dnsop-dnssec-keyrestore-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-12" class="published">12 October 2025</time>
+<time datetime="2025-10-16" class="published">16 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-15">15 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-19">19 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1122,7 +1122,7 @@ case a DNSSEC private key becoming inoperable.<a href="#section-abstract-1" clas
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 15 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1222,12 +1222,12 @@ natural disaster, operator error, or malicious action.<a href="#section-1-3" cla
 <p id="section-1-4">It is difficult to create backups of the private key. After all, the
 system is designed to prevent backups. A compromise is usually reached
 by using a secret sharing scheme, e.g. <span>[<a href="#Shamir" class="cite xref">Shamir</a>]</span>. The private key is
-split into <em>n</em> pieces inside of the HSM, which are then distributed to
-key share holders. In case the private key becomes inoperable, <em>m</em> out
-of the <em>n</em> key share holders need to come together to restore the secret
+split into N pieces inside of the HSM, which are then distributed to
+key share holders. In case the private key becomes inoperable, M out
+of the N key share holders need to come together to restore the secret
 key.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">A key sharing scheme does not mitigate all risk. When
-more than <em>n-m</em> key shares become unavailable a restore cannot be
+more than N-M key shares become unavailable a restore cannot be
 performed, because not enough key shares are available. This is
 particularly challenging in small to medium sized teams.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">Unlike the private key, a DNSSEC signed zone can be considered public
